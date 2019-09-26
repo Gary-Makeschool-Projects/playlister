@@ -17,9 +17,6 @@ os.environ['FLASK_ENV'] = 'development'  # set flask envoirnment variable
 app = Flask(__name__)  # flask application
 
 os.environ['MONGO_URI'] = 'mongodb://localhost:27017/playlister'
-
-db_name = 'test'
-mongo_url = os.getenv('MONGOLAB_URI', 'mongodb://localhost:27017')
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/')
 app.config['MONGO_URI'] = host
 client = MongoClient(host=f'{host}?retryWrites=false')
