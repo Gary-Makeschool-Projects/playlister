@@ -21,7 +21,7 @@ host = os.environ.get('MONGO_URI')
 mongodb_uri = os.getenv(
     'MONGODB_URI', default='mongodb://localhost:27017/')
 app.config['MONGO_URI'] = host
-os.system('heroku config:set MONGO_URL=mongodb_uri')
+
 client = MongoClient(mongodb_uri)
 db = client.get_default_database('test')
 playlists = db.playlists
