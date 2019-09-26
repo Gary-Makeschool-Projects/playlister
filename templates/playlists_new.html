@@ -1,0 +1,14 @@
+<!-- templates/playlists_new.html -->
+{% extends 'base.html' %} {% block content %}
+<form method="POST" action="/playlists">
+    {% include 'partials/playlists_form.html' %}
+
+    <!-- BUTTON -->
+    <p>
+        <button type="submit">Save Playlist</button>
+    </p>
+    <p>
+        <button type="reset">Reset</button>
+    </p>
+</form>
+{% endblock %}
