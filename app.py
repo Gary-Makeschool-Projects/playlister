@@ -17,11 +17,12 @@ os.environ['FLASK_ENV'] = 'development'  # set flask envoirnment variable
 app = Flask(__name__)
 
 os.environ['MONGO_URI'] = 'mongodb://localhost:27017/playlister'
-host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/playlister')
-mongodb_uri = os.getenv(
-    'MONGODB_URI', default='mongodb://localhost:27017/')
+
+db_name = 'test'
+mongo_url = os.getenv('MONGOLAB_URI', 'mongodb://localhost:27017')
+host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/')
 app.config['MONGO_URI'] = host
-client = MongoClient(host=f'{host}?retryWrites=false')
+client = MongoClient(host=host)
 db = client.get_default_database('test')
 playlists = db.playlists
 
@@ -133,7 +134,7 @@ def playlists_delete(playlist_id):
         description:
         responses:
             200:
-                description: 
+                description:
             400:
                 description:
     """
@@ -142,4 +143,15 @@ def playlists_delete(playlist_id):
 
 
 if __name__ == '__main__':
+    try:
+        connection = pymongo.Connection(host)
+        if 'localhost' in self.host:
+            db_name = '/data/db'
+        else:
+            db_name = self.host.rsplit('/', 1)[1]
+        database = connection[db_name]
+    except:
+        print('Error: Unable to Connect')
+        connection = None
+
     app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
