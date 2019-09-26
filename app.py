@@ -14,7 +14,7 @@ except (ImportError, ModuleNotFoundError) as e:
 
 os.environ['FLASK_ENV'] = 'development'  # set flask envoirnment variable
 
-app = Flask(__name__)
+app = Flask(__name__)  # flask application
 
 os.environ['MONGO_URI'] = 'mongodb://localhost:27017/playlister'
 
@@ -22,7 +22,7 @@ db_name = 'test'
 mongo_url = os.getenv('MONGOLAB_URI', 'mongodb://localhost:27017')
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/')
 app.config['MONGO_URI'] = host
-client = MongoClient(host=host)
+client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.get_default_database('test')
 playlists = db.playlists
 comments = db.comments
@@ -36,7 +36,7 @@ def playlists_index():
         responses:
             200:
                 description:
-            400:
+            404:
                 description:
     """
     return render_template('playlists_index.html', playlists=playlists.find())
@@ -50,7 +50,7 @@ def playlists_submit():
         responses:
             200:
                 description:
-            400:
+            404:
                 description:
     """
     playlist = {
@@ -73,7 +73,7 @@ def playlists_new():
         responses:
             200:
                 description:
-            400:
+            404:
                 description:
     """
     return render_template('playlists_new.html', playlist={}, title='New Playlist')
@@ -172,15 +172,4 @@ def comments_delete(comment_id):
 
 
 if __name__ == '__main__':
-    try:
-        connection = pymongo.Connection(host)
-        if 'localhost' in self.host:
-            db_name = '/data/db'
-        else:
-            db_name = self.host.rsplit('/', 1)[1]
-        database = connection[db_name]
-    except:
-        print('Error: Unable to Connect')
-        connection = None
-
     app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
