@@ -15,9 +15,9 @@ except (ImportError, ModuleNotFoundError) as e:
 os.environ['FLASK_ENV'] = 'development'  # set flask envoirnment variable
 
 app = Flask(__name__)
-portnum = 8080  # custom port to run server on
-host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
-client = MongoClient(host=f'{host}?retryWrites=false')
+mongodb_uri = os.getenv('MONGODB_URI', default='mongodb://localhost:27017/')
+host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/playlister')
+client = MongoClient(mongodb_uri)
 db = client.get_default_database()
 playlists = db.playlists
 
