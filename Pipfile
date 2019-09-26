@@ -10,6 +10,7 @@ autopep8 = "*"
 flask = "*"
 requests = "*"
 pymongo = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
