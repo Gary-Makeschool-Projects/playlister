@@ -7,7 +7,7 @@ try:
     import requests
     from pymongo import MongoClient
     from bson.objectid import ObjectId
-except (ImportError, ModuleNotFoundError) as e:
+except ImportError as e:
     print(e, file=sys.stderr)
     print('\x1b[1;31m' + "run pipenv install 'moduleName' " + '\x1b[0m')
 
